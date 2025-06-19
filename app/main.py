@@ -10,6 +10,7 @@ from llm_enhancer import enhance_resume_section
 from learning_resources import get_learning_resources
 from project_ideas import generate_project_ideas
 from fit_classifier import predict_fit
+# Keep import but don't use it unless explicitly requested
 from ner_skill_extractor import extract_skills_ner
 
 load_dotenv()
@@ -60,8 +61,8 @@ st.markdown('''
 </div>
 ''', unsafe_allow_html=True)
 
-# UI indicator for skill extraction mode (hardcoded to spaCy NER)
-st.markdown("<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>spaCy NER</b></span></div>", unsafe_allow_html=True)
+# UI indicator for skill extraction mode (hardcoded to Basic Extraction)
+st.markdown("<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>Basic Extraction</b></span></div>", unsafe_allow_html=True)
 
 st.divider()
 
@@ -138,7 +139,7 @@ if resume_text or jd_text:
             
             # Skills extraction
             with st.spinner('🔍 Extracting skills from resume...'):
-                resume_skills = extract_skills_ner(resume_text)
+                resume_skills = extract_skills(resume_text)
             
             if resume_skills:
                 st.success(f'✅ Found {len(resume_skills)} skills in your resume')
@@ -172,7 +173,7 @@ if resume_text or jd_text:
             
             # Skills extraction
             with st.spinner('🔍 Extracting required skills...'):
-                jd_skills = extract_skills_ner(jd_text)
+                jd_skills = extract_skills(jd_text)
             
             if jd_skills:
                 st.success(f'✅ Found {len(jd_skills)} required skills')
