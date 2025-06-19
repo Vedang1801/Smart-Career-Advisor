@@ -45,13 +45,26 @@ with st.sidebar:
     st.markdown('### 🔒 Privacy Notice')
     st.info('Your documents are processed locally and never stored on our servers.')
     
-    st.markdown('### 🛠️ Technology Stack')
+    st.markdown('### 🛠️ Advanced Technology Stack')
     with st.expander('View Tech Details'):
         st.markdown('''
-        - **AI/ML**: OpenAI GPT, scikit-learn
-        - **NLP**: spaCy, LangChain
-        - **UI**: Streamlit
-        - **Parsing**: PyPDF2, python-docx
+        **🚀 Advanced ML Engine:**
+        - **XGBoost Classifier**: 78.14% accuracy
+        - **Real Data**: 6,241 resume-job pairs
+        - **Features**: 10,012 engineered features
+        - **Performance**: 89.57% ROC AUC score
+        
+        **🤖 AI/NLP Stack:**
+        - **OpenAI GPT**: Resume enhancement
+        - **spaCy NER**: Advanced skill extraction  
+        - **TF-IDF Vectorization**: Text analysis
+        - **Statistical Features**: Text processing
+        
+        **🔧 Framework & UI:**
+        - **Streamlit**: Interactive interface
+        - **scikit-learn**: ML pipeline
+        - **PyPDF2, python-docx**: Document parsing
+        - **LangChain**: AI orchestration
         ''')
 
 st.title('Smart Career Advisor AI')
@@ -318,53 +331,116 @@ if resume_text and jd_text and resume_skills and jd_skills:
     st.markdown('---')
     
     # ML Fit Classifier with enhanced presentation
-    st.markdown('## AI Fit Assessment')
-    st.markdown('Our machine learning model analyzes multiple factors to predict job compatibility.')
+    st.markdown('## 🤖 Advanced AI Fit Assessment')
+    st.markdown('Our enterprise-grade ML model (trained on 6,241 real resume-job pairs) analyzes your complete profile for accurate predictions.')
     
-    with st.spinner('AI is analyzing your profile...'):
-        pred, prob = predict_fit(match_score, len(matched_skills), len(missing_skills))
+    with st.spinner('🚀 Advanced AI is analyzing your profile...'):
+        # Try advanced ML model first with full text
+        result = predict_fit(
+            resume_text=resume_text,
+            job_description=jd_text,
+            match_score=match_score,
+            num_matched=len(matched_skills),
+            num_missing=len(missing_skills)
+        )
     
-    fit_label = 'Strong Candidate' if pred == 1 else 'Needs Development'
+    # Extract prediction details
+    prediction = result['prediction']
+    confidence = result['confidence']
+    probabilities = result['probabilities']
+    model_type = result.get('model_type', 'unknown')
     
-    # Create assessment card
-    assessment_col1, assessment_col2 = st.columns([2, 1])
+    # Create assessment card with enhanced styling
+    assessment_col1, assessment_col2 = st.columns([3, 1])
     
     with assessment_col1:
-        if pred == 1:
-            st.success(f'🎉 **AI Prediction: {fit_label}**')
-            st.markdown('The AI model indicates you are well-suited for this role based on your skill profile.')
-        else:
-            st.warning(f'📈 **AI Prediction: {fit_label}**')
-            st.markdown('The AI suggests focusing on skill development to improve your candidacy.')
+        if prediction in ['Good Fit', 'Potential Fit']:
+            if prediction == 'Good Fit':
+                st.success(f'🎉 **AI Prediction: {prediction}**')
+                st.markdown('🚀 The advanced ML model indicates you are **excellently suited** for this role based on comprehensive analysis.')
+            else:  # Potential Fit
+                st.info(f'⭐ **AI Prediction: {prediction}**') 
+                st.markdown('📈 The AI model shows **good potential** - with some skill development, you could be an excellent candidate.')
+        else:  # No Fit
+            st.warning(f'📊 **AI Prediction: {prediction}**')
+            st.markdown('🎯 The AI suggests **focused skill development** to improve your alignment with this role.')
     
     with assessment_col2:
-        # Confidence meter
-        confidence_level = "High" if prob > 0.8 else "Medium" if prob > 0.6 else "Low"
-        confidence_color = "🟢" if prob > 0.8 else "🟡" if prob > 0.6 else "🔴"
+        # Enhanced confidence display
+        if confidence > 0.8:
+            confidence_level = "Very High"
+            confidence_color = "🟢"
+        elif confidence > 0.6:
+            confidence_level = "High" 
+            confidence_color = "🟢"
+        elif confidence > 0.4:
+            confidence_level = "Medium"
+            confidence_color = "🟡"
+        else:
+            confidence_level = "Low"
+            confidence_color = "🔴"
         
         st.metric(
             label='🎯 AI Confidence', 
-            value=f'{prob*100:.1f}%',
+            value=f'{confidence*100:.1f}%',
             delta=f"{confidence_level} {confidence_color}"
         )
     
-    # Additional insights
-    with st.expander('🔍 AI Assessment Details', expanded=False):
-        st.markdown('**Factors considered by the AI model:**')
+    # Model information and detailed probabilities
+    with st.expander('🔍 Advanced AI Assessment Details', expanded=False):
+        # Model info
+        if model_type == 'advanced_ml':
+            st.success('🚀 **Using Advanced ML Model** (XGBoost trained on 6,241 real resume-job pairs)')
+            st.markdown('**Model Features:**')
+            st.markdown('• 📊 10,012 engineered features (TF-IDF + statistical)')
+            st.markdown('• 🎯 78.14% accuracy on test data')
+            st.markdown('• 📈 89.57% ROC AUC score')
+            st.markdown('• 🔬 Advanced NLP text processing')
+        elif model_type == 'basic':
+            st.info('📊 **Using Basic Model** (Skill-based analysis)')
+            st.markdown('*For best results, ensure both resume and job description are uploaded*')
+        else:
+            st.warning('⚠️ **Using Fallback Model**')
+        
+        st.markdown('---')
+        
+        # Detailed probabilities
+        st.markdown('**📊 Detailed Prediction Probabilities:**')
+        prob_cols = st.columns(len(probabilities))
+        for i, (class_name, prob) in enumerate(probabilities.items()):
+            with prob_cols[i]:
+                st.metric(
+                    label=class_name,
+                    value=f'{prob*100:.1f}%',
+                    delta="🎯" if class_name == prediction else ""
+                )
+        
+        st.markdown('---')
+        
+        # Analysis factors
+        st.markdown('**🔍 Factors analyzed by AI:**')
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.markdown(f'📊 **Match Score**: {match_score:.1f}%')
+            st.markdown(f'📊 **Skill Match**: {match_score:.1f}%')
         with col2:
             st.markdown(f'✅ **Skills Matched**: {len(matched_skills)}')
         with col3:
-            st.markdown(f'📚 **Skills to Learn**: {len(missing_skills)}')
+            st.markdown(f'📚 **Skills to Develop**: {len(missing_skills)}')
+        
+        if model_type == 'advanced_ml':
+            st.markdown('📝 **Text Analysis**: Resume & job description content, writing style, keyword density')
+            st.markdown('📏 **Statistical Features**: Document length, vocabulary richness, sentence complexity')
+            st.markdown('🔤 **TF-IDF Vectors**: 10,000+ text features capturing semantic similarity')
         
         st.markdown('---')
-        st.markdown(' **Recommendation**: ' + (
-            'You have a strong foundation for this role. Consider highlighting your matched skills in your application.' 
-            if pred == 1 else 
-            'Focus on developing the missing skills through courses, projects, or certifications to improve your candidacy.'
-        ))
+        
+        # Enhanced recommendations
+        if prediction == 'Good Fit':
+            st.success('💡 **Recommendation**: You have an excellent profile for this role! Highlight your matched skills and relevant experience in your application.')
+        elif prediction == 'Potential Fit':
+            st.info('💡 **Recommendation**: You have good potential! Focus on developing 1-2 key missing skills and emphasize your transferable experience.')
+        else:
+            st.warning('💡 **Recommendation**: Focus on strategic skill development. Consider taking courses in the missing technical skills and building projects to demonstrate competency.')
 
     st.divider()
     

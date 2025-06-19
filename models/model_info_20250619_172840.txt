@@ -1,0 +1,7 @@
+Model: XGBoost
+Timestamp: 20250619_172840
+Accuracy: 0.7814
+AUC Score: 0.8957
+Features: 10012
+Target Classes: ['Good Fit', 'No Fit', 'Potential Fit']
+Best Parameters: {'subsample': 1.0, 'n_estimators': 100, 'max_depth': 9, 'learning_rate': 0.2}
