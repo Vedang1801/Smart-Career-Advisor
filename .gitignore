@@ -51,6 +51,7 @@ Thumbs.db
 # Streamlit
 .streamlit/
 !.streamlit/setup.sh
+!.streamlit/config.toml
 
 # Logs
 *.log
