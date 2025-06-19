@@ -1,38 +1,21 @@
 import spacy
 from spacy.matcher import PhraseMatcher
 
-# Try to load spaCy English model, fallback to basic extraction if not available
-try:
-    nlp = spacy.load('en_core_web_sm')
-    USE_NER = True
-    print("spaCy NER model loaded successfully")
-except OSError:
-    print("[WARNING] spaCy model 'en_core_web_sm' not found. Falling back to basic skill extraction.")
-    nlp = None
-    USE_NER = False
+# Load spaCy English model (fail fast if not available)
+nlp = spacy.load('en_core_web_sm')
 
-# Expose USE_NER for UI indicator
-NER_STATUS = 'spaCy NER' if USE_NER else 'Basic Skill Extraction'
+from skills import COMMON_SKILLS
 
-__all__ = ["extract_skills_ner", "NER_STATUS"]
-
-from skills import COMMON_SKILLS, extract_skills
-
-if USE_NER and nlp:
-    skill_patterns = [nlp.make_doc(skill) for skill in COMMON_SKILLS]
-    matcher = PhraseMatcher(nlp.vocab, attr='LOWER')
-    matcher.add('SKILL', skill_patterns)
+# Prepare PhraseMatcher for skills
+skill_patterns = [nlp.make_doc(skill) for skill in COMMON_SKILLS]
+matcher = PhraseMatcher(nlp.vocab, attr='LOWER')
+matcher.add('SKILL', skill_patterns)
 
 def extract_skills_ner(text):
-    if USE_NER and nlp:
-        doc = nlp(text)
-        matches = matcher(doc)
-        found = set()
-        for match_id, start, end in matches:
-            span = doc[start:end]
-            found.add(span.text.lower())
-        return sorted(found)
-    else:
-        # Fallback to basic extraction (temporarily disabled)
-        # return extract_skills(text)
-        return []
+    doc = nlp(text)
+    matches = matcher(doc)
+    found = set()
+    for match_id, start, end in matches:
+        span = doc[start:end]
+        found.add(span.text.lower())
+    return sorted(found)
