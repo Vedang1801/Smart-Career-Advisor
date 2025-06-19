@@ -10,6 +10,9 @@ except OSError:
     nlp = None
     USE_NER = False
 
+# Expose USE_NER for UI indicator
+NER_STATUS = 'spaCy NER' if USE_NER else 'Basic Skill Extraction'
+
 from skills import COMMON_SKILLS, extract_skills
 
 if USE_NER and nlp:

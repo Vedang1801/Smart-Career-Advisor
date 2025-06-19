@@ -10,7 +10,7 @@ from llm_enhancer import enhance_resume_section
 from learning_resources import get_learning_resources
 from project_ideas import generate_project_ideas
 from fit_classifier import predict_fit
-from ner_skill_extractor import extract_skills_ner
+from ner_skill_extractor import extract_skills_ner, NER_STATUS
 
 load_dotenv()
 
@@ -59,6 +59,9 @@ st.markdown('''
     <span style="font-size:1.2em; color:white; font-weight:500;">AI-powered assistant for resume optimization, job matching, and career growth</span>
 </div>
 ''', unsafe_allow_html=True)
+
+# Add UI indicator for skill extraction method
+st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>{NER_STATUS}</b></span></div>", unsafe_allow_html=True)
 
 st.divider()
 
