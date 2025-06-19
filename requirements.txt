@@ -8,6 +8,7 @@ beautifulsoup4
 python-dotenv
 langchain_community
 spacy>=3.4.0,<3.6.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.1/en_core_web_sm-3.4.1-py3-none-any.whl
 pandas
 numpy
 xgboost
