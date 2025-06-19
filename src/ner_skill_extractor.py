@@ -32,5 +32,6 @@ def extract_skills_ner(text):
             found.add(span.text.lower())
         return sorted(found)
     else:
-        # Fallback to basic extraction
-        return extract_skills(text)
+        # Fallback to basic extraction (temporarily disabled)
+        # return extract_skills(text)
+        return []
