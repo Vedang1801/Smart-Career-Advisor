@@ -1,0 +1,7 @@
+langchain
+openai
+streamlit
+scikit-learn
+PyPDF2
+python-docx
+beautifulsoup4
