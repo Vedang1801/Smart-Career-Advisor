@@ -7,3 +7,6 @@ python-docx
 beautifulsoup4
 python-dotenv
 langchain_community
+spacy
+pandas
+numpy
