@@ -60,9 +60,6 @@ st.markdown('''
 </div>
 ''', unsafe_allow_html=True)
 
-# Add UI indicator for skill extraction method
-st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>{NER_STATUS}</b></span></div>", unsafe_allow_html=True)
-
 st.divider()
 
 st.markdown('## 📁 Upload Documents')
