@@ -3,7 +3,3 @@ enableCORS = false
 
 [browser]
 gatherUsageStats = false
-
-[runner]
-# Command to install dependencies on startup
-installCommand = "pip install spacy && python3 -m spacy download en_core_web_sm"
