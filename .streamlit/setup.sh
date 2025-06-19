@@ -1,12 +1,14 @@
 #!/bin/bash
 
-echo "Setting up spaCy environment..."
+echo "🔧 Setting up spaCy environment..."
 
-# Check if spaCy model is available
-if python3 -c "import en_core_web_sm" &> /dev/null; then
-    echo "✅ spaCy model already available"
+# Download spaCy model using pip (more reliable than spacy download)
+echo "📦 Installing spaCy model..."
+pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.1/en_core_web_sm-3.4.1-py3-none-any.whl
+
+# Verify installation
+if python3 -c "import en_core_web_sm; print('✅ spaCy model loaded successfully')" 2>/dev/null; then
+    echo "✅ spaCy setup complete"
 else
-    echo "⚠️ spaCy model not found, but app will work with basic skill extraction"
+    echo "⚠️ spaCy model installation failed, app will use basic extraction"
 fi
-
-echo "Setup complete ✅"
