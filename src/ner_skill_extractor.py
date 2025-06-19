@@ -1,8 +1,15 @@
 import spacy
 from spacy.matcher import PhraseMatcher
+import subprocess
+import sys
 
-# Load spaCy English model
-nlp = spacy.load('en_core_web_sm')
+# Try to load spaCy English model, download if not available
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    print("en_core_web_sm model not found. Downloading...")
+    subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load('en_core_web_sm')
 
 # Use your COMMON_SKILLS list for phrase matching
 from skills import COMMON_SKILLS

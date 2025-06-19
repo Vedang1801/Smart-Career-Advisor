@@ -1,4 +1,4 @@
-from langchain.llms import OpenAI
+from langchain_community.llms import OpenAI
 from langchain.prompts import PromptTemplate
 import os
 from dotenv import load_dotenv
