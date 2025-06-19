@@ -75,10 +75,6 @@ try:
 except:
     use_ner = False
 
-# UI indicator showing which extraction method is being used
-extraction_mode = "spaCy NER" if use_ner else "Basic Extraction"
-st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>{extraction_mode}</b></span></div>", unsafe_allow_html=True)
-
 st.divider()
 
 st.markdown('## 📁 Upload Documents')
@@ -160,8 +156,6 @@ if resume_text or jd_text:
                     except Exception as e:
                         st.warning(f"NER extraction failed, falling back to basic extraction: {str(e)}")
                         resume_skills = extract_skills(resume_text)
-                        # Update the UI indicator if NER fails at runtime
-                        st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>Basic Extraction</b></span></div>", unsafe_allow_html=True)
                 else:
                     resume_skills = extract_skills(resume_text)
             
