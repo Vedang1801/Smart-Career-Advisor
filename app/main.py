@@ -61,8 +61,23 @@ st.markdown('''
 </div>
 ''', unsafe_allow_html=True)
 
-# UI indicator for skill extraction mode (hardcoded to Basic Extraction)
-st.markdown("<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>Basic Extraction</b></span></div>", unsafe_allow_html=True)
+# Try to use NER if available, otherwise fall back to basic extraction
+try:
+    # Create a flag to indicate which method is being used
+    use_ner = True
+    # Try importing spaCy to see if it's available
+    import spacy
+    try:
+        # Check if model can be loaded
+        spacy.load("en_core_web_sm")
+    except:
+        use_ner = False
+except:
+    use_ner = False
+
+# UI indicator showing which extraction method is being used
+extraction_mode = "spaCy NER" if use_ner else "Basic Extraction"
+st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>{extraction_mode}</b></span></div>", unsafe_allow_html=True)
 
 st.divider()
 
@@ -139,7 +154,16 @@ if resume_text or jd_text:
             
             # Skills extraction
             with st.spinner('🔍 Extracting skills from resume...'):
-                resume_skills = extract_skills(resume_text)
+                if use_ner:
+                    try:
+                        resume_skills = extract_skills_ner(resume_text)
+                    except Exception as e:
+                        st.warning(f"NER extraction failed, falling back to basic extraction: {str(e)}")
+                        resume_skills = extract_skills(resume_text)
+                        # Update the UI indicator if NER fails at runtime
+                        st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>Basic Extraction</b></span></div>", unsafe_allow_html=True)
+                else:
+                    resume_skills = extract_skills(resume_text)
             
             if resume_skills:
                 st.success(f'✅ Found {len(resume_skills)} skills in your resume')
@@ -173,7 +197,14 @@ if resume_text or jd_text:
             
             # Skills extraction
             with st.spinner('🔍 Extracting required skills...'):
-                jd_skills = extract_skills(jd_text)
+                if use_ner:
+                    try:
+                        jd_skills = extract_skills_ner(jd_text)
+                    except Exception as e:
+                        st.warning(f"NER extraction failed, falling back to basic extraction: {str(e)}")
+                        jd_skills = extract_skills(jd_text)
+                else:
+                    jd_skills = extract_skills(jd_text)
             
             if jd_skills:
                 st.success(f'✅ Found {len(jd_skills)} required skills')
