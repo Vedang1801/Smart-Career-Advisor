@@ -10,3 +10,5 @@ langchain_community
 spacy
 pandas
 numpy
+xgboost
+joblib
