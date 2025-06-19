@@ -376,13 +376,21 @@ if resume_text and jd_text and resume_skills and jd_skills:
     
     # Learning Resources
     if missing_skills:
-        st.subheader('Skill Development Resources')
+        st.subheader('📚 Skill Development Resources')
         resources = get_learning_resources(missing_skills)
         if resources:
+            st.success(f'Found learning resources for {len(resources)} out of {len(missing_skills)} missing skills:')
+            
+            # Display resources in a nice format
             for skill, url in resources.items():
-                st.markdown(f'📚 [{skill.title()}]({url})')
+                st.markdown(f'🎯 **{skill.title()}** → [Learn Here]({url})')
+            
+            # Show skills without direct resources if any
+            skills_without_resources = set(missing_skills) - set(resources.keys())
+            if skills_without_resources:
+                st.info(f'💡 No direct resources found for: {", ".join(sorted(skills_without_resources))}. Consider searching for these on platforms like Coursera, Udemy, or YouTube.')
         else:
-            st.info('No direct resources found for missing skills.')
+            st.info('💡 No direct resources found for these skills. Consider searching for them on platforms like Coursera, Udemy, Codecademy, or YouTube.')
         
         st.divider()
 
