@@ -1,5 +1,4 @@
 langchain
-langchain-openai
 openai
 streamlit
 scikit-learn

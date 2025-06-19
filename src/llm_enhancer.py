@@ -1,4 +1,4 @@
-from langchain_openai import OpenAI
+from langchain_community.llms import OpenAI
 from langchain.prompts import PromptTemplate
 import os
 import streamlit as st
@@ -31,8 +31,8 @@ def enhance_resume_section(resume_text, jd_text, missing_skills):
                 "Improved Resume Section:"
             )
         )
-        llm = OpenAI(temperature=0.3, api_key=openai_api_key)
-        return llm.invoke(
+        llm = OpenAI(temperature=0.3, openai_api_key=openai_api_key)
+        return llm(
             prompt.format(
                 resume=resume_text,
                 jd=jd_text,
