@@ -10,7 +10,7 @@ from llm_enhancer import enhance_resume_section
 from learning_resources import get_learning_resources
 from project_ideas import generate_project_ideas
 from fit_classifier import predict_fit
-from ner_skill_extractor import extract_skills_ner, NER_STATUS
+from ner_skill_extractor import extract_skills_ner
 
 load_dotenv()
 
@@ -60,8 +60,8 @@ st.markdown('''
 </div>
 ''', unsafe_allow_html=True)
 
-# UI indicator for skill extraction mode
-st.markdown(f"<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>{NER_STATUS}</b></span></div>", unsafe_allow_html=True)
+# UI indicator for skill extraction mode (hardcoded to spaCy NER)
+st.markdown("<div style='text-align:center; margin-bottom:10px;'><span style='background:#e0e7ff; color:#3730a3; padding:6px 18px; border-radius:20px; font-weight:600; font-size:1em;'>🧠 Skill Extraction Mode: <b>spaCy NER</b></span></div>", unsafe_allow_html=True)
 
 st.divider()
 
