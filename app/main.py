@@ -331,10 +331,10 @@ if resume_text and jd_text and resume_skills and jd_skills:
     st.markdown('---')
     
     # ML Fit Classifier with enhanced presentation
-    st.markdown('## 🤖 Advanced AI Fit Assessment')
+    st.markdown('## Advanced AI Fit Assessment')
     st.markdown('Our enterprise-grade ML model (trained on 6,241 real resume-job pairs) analyzes your complete profile for accurate predictions.')
     
-    with st.spinner('🚀 Advanced AI is analyzing your profile...'):
+    with st.spinner('Advanced AI is analyzing your profile...'):
         # Try advanced ML model first with full text
         result = predict_fit(
             resume_text=resume_text,
@@ -388,19 +388,14 @@ if resume_text and jd_text and resume_skills and jd_skills:
     
     # Model information and detailed probabilities
     with st.expander('🔍 Advanced AI Assessment Details', expanded=False):
-        # Model info
+        # Model info - simplified for end users
         if model_type == 'advanced_ml':
-            st.success('🚀 **Using Advanced ML Model** (XGBoost trained on 6,241 real resume-job pairs)')
-            st.markdown('**Model Features:**')
-            st.markdown('• 📊 10,012 engineered features (TF-IDF + statistical)')
-            st.markdown('• 🎯 78.14% accuracy on test data')
-            st.markdown('• 📈 89.57% ROC AUC score')
-            st.markdown('• 🔬 Advanced NLP text processing')
+            st.success('🚀 **Using Advanced AI Analysis** - Our smart system trained on thousands of real resumes and job descriptions')
         elif model_type == 'basic':
-            st.info('📊 **Using Basic Model** (Skill-based analysis)')
+            st.info('📊 **Using Standard Analysis** - Based on skill matching')
             st.markdown('*For best results, ensure both resume and job description are uploaded*')
         else:
-            st.warning('⚠️ **Using Fallback Model**')
+            st.warning('⚠️ **Using Basic Assessment**')
         
         st.markdown('---')
         
@@ -417,20 +412,18 @@ if resume_text and jd_text and resume_skills and jd_skills:
         
         st.markdown('---')
         
-        # Analysis factors
-        st.markdown('**🔍 Factors analyzed by AI:**')
+        # Analysis factors - focused on what users care about
+        st.markdown('**🔍 What our AI analyzed:**')
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.markdown(f'📊 **Skill Match**: {match_score:.1f}%')
+            st.markdown(f'📊 **Overall Match**: {match_score:.1f}%')
         with col2:
-            st.markdown(f'✅ **Skills Matched**: {len(matched_skills)}')
+            st.markdown(f'✅ **No of Skills Matched**: {len(matched_skills)}')
         with col3:
-            st.markdown(f'📚 **Skills to Develop**: {len(missing_skills)}')
+            st.markdown(f'📚 **Skills to Learn**: {len(missing_skills)}')
         
         if model_type == 'advanced_ml':
-            st.markdown('📝 **Text Analysis**: Resume & job description content, writing style, keyword density')
-            st.markdown('📏 **Statistical Features**: Document length, vocabulary richness, sentence complexity')
-            st.markdown('🔤 **TF-IDF Vectors**: 10,000+ text features capturing semantic similarity')
+            st.markdown('📝 **Additional factors considered by our model**: Resume content quality and how well it aligns with job requirements')
         
         st.markdown('---')
         

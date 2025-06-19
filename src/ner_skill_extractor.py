@@ -6,11 +6,19 @@ from skills import COMMON_SKILLS
 @st.cache_resource
 def load_nlp():
     try:
-        # First attempt: try to load the model directly
+        # Try multiple model loading approaches
+        try:
+            # Method 1: Direct import (works when installed via wheel)
+            import en_core_web_sm
+            return en_core_web_sm.load()
+        except ImportError:
+            pass
+        
+        # Method 2: Standard spacy.load
         return spacy.load("en_core_web_sm")
-    except OSError as e:
-        st.warning("⚠️ spaCy model not found. Falling back to basic extraction.")
-        return None  # Explicitly return None if model is not available
+    except (OSError, IOError) as e:
+        st.info("ℹ️ Advanced NLP model not available - using basic skill extraction")
+        return None
 
 def extract_skills_ner(text):
     try:

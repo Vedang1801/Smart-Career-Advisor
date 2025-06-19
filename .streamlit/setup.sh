@@ -1,14 +1,12 @@
 #!/bin/bash
 
+echo "Setting up spaCy environment..."
 
-echo "Checking for spaCy installation..."
-if ! python3 -c "import spacy" &> /dev/null; then
-    echo "spaCy not found. Installing spaCy..."
-    pip install spacy
+# Check if spaCy model is available
+if python3 -c "import en_core_web_sm" &> /dev/null; then
+    echo "✅ spaCy model already available"
+else
+    echo "⚠️ spaCy model not found, but app will work with basic skill extraction"
 fi
 
-echo "Installing spaCy model..."
-
-python3 -m spacy download en_core_web_sm
-
-echo "spaCy model installation complete ✅"
+echo "Setup complete ✅"
