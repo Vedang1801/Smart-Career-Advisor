@@ -5,6 +5,7 @@ from spacy.matcher import PhraseMatcher
 try:
     nlp = spacy.load('en_core_web_sm')
     USE_NER = True
+    print("spaCy NER model loaded successfully")
 except OSError:
     print("[WARNING] spaCy model 'en_core_web_sm' not found. Falling back to basic skill extraction.")
     nlp = None
