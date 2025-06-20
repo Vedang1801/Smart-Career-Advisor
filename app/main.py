@@ -331,10 +331,10 @@ if resume_text and jd_text and resume_skills and jd_skills:
     st.markdown('---')
     
     # ML Fit Classifier with enhanced presentation
-    st.markdown('## 🤖 Advanced AI Fit Assessment')
+    st.markdown('## Advanced AI Fit Assessment')
     st.markdown('Our enterprise-grade ML model (trained on 6,241 real resume-job pairs) analyzes your complete profile for accurate predictions.')
     
-    with st.spinner('🚀 Advanced AI is analyzing your profile...'):
+    with st.spinner(' Advanced AI is analyzing your profile...'):
         # Try advanced ML model first with full text
         result = predict_fit(
             resume_text=resume_text,
@@ -386,26 +386,10 @@ if resume_text and jd_text and resume_skills and jd_skills:
             delta=f"{confidence_level} {confidence_color}"
         )
     
-    # Model information and detailed probabilities
-    with st.expander('🔍 Advanced AI Assessment Details', expanded=False):
-        # Model info
-        if model_type == 'advanced_ml':
-            st.success('🚀 **Using Advanced ML Model** (XGBoost trained on 6,241 real resume-job pairs)')
-            st.markdown('**Model Features:**')
-            st.markdown('• 📊 10,012 engineered features (TF-IDF + statistical)')
-            st.markdown('• 🎯 78.14% accuracy on test data')
-            st.markdown('• 📈 89.57% ROC AUC score')
-            st.markdown('• 🔬 Advanced NLP text processing')
-        elif model_type == 'basic':
-            st.info('📊 **Using Basic Model** (Skill-based analysis)')
-            st.markdown('*For best results, ensure both resume and job description are uploaded*')
-        else:
-            st.warning('⚠️ **Using Fallback Model**')
-        
-        st.markdown('---')
-        
+    # Assessment details focused on user-relevant information
+    with st.expander('🔍 AI Assessment Details', expanded=False):
         # Detailed probabilities
-        st.markdown('**📊 Detailed Prediction Probabilities:**')
+        st.markdown('**📊 Prediction Confidence Breakdown:**')
         prob_cols = st.columns(len(probabilities))
         for i, (class_name, prob) in enumerate(probabilities.items()):
             with prob_cols[i]:
