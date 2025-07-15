@@ -7,6 +7,7 @@ COMMON_SKILLS = [
     'html', 'html5', 'css', 'css3', 'react', 'reactjs', 'react native', 'angular', 'angularjs', 'vue', 'vuejs', 'svelte', 'ember', 'backbone', 'jquery', 'jQuery', 'bootstrap', 'tailwind', 'material-ui', 'redux', 'webpack', 'babel', 'next.js', 'nuxt.js', 'meteor', 'express', 'expressjs', 'node', 'nodejs', 'fastapi', 'flask', 'django', 'spring', 'spring boot', 'struts', 'grails', 'laravel', 'symfony', 'cakephp', 'zend', 'codeigniter', 'yii', 'asp.net', 'dotnet', 'dotnet core', 'rails', 'ruby on rails', 'phoenix', 'play', 'fiber', 'hapi', 'koa', 'adonis', 'nestjs', 'quasar', 'alpinejs', 'stimulus', 'pyramid', 'tornado', 'bottle', 'web2py', 'cherrypy', 'coldfusion', 'servlet', 'jsp', 'blade', 'sinatra', 'mason', 'mojolicious', 'plack', 'rocket', 'actix', 'vapor', 'actix-web',
     # Full Stack/Backend/Frontend
     'full stack', 'frontend', 'backend', 'rest', 'graphql', 'grpc', 'microservices', 'api', 'mvc', 'spa', 'ssr', 'pwa',
+
     # Data & ML
     'pandas', 'numpy', 'scikit-learn', 'tensorflow', 'pytorch', 'keras', 'xgboost', 'catboost', 'mlops', 'machine learning', 'deep learning', 'nlp', 'computer vision', 'data analysis', 'data science',
     # Databases
